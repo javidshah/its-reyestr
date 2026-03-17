@@ -82,7 +82,7 @@ export default function App() {
 
       <main className="max-w-xl mx-auto p-6 space-y-6">
         <div className="flex items-center justify-between text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] px-2">
-          <span>Siyahı: {results.length}</span>
+          <span>Bazada cəmi: {services.length} xidmət</span>
           <span className="flex items-center gap-1.5 text-blue-500"><Zap size={12} fill="currentColor" /> Live</span>
         </div>
 
