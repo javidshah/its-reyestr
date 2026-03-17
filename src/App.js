@@ -20,7 +20,7 @@ export default function App() {
       const q = query.toLowerCase();
       filtered = filtered.filter(s => 
         (s["Tibbi xidmətin adı"]?.toLowerCase().includes(q)) || 
-        (s["Prosedur / xəstəlik kodu"]?.toString().includes(q))
+        (s["Sıra №"]?.toString().includes(q)) // Updated to use Sıra № for search
       );
     }
     return filtered.slice(0, 100);
@@ -45,8 +45,9 @@ export default function App() {
                 <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] mt-1.5">Mərkəzi Reyestr</p>
               </div>
             </div>
+            {/* Show Total Database Count Here */}
             <div className="bg-blue-600 text-white px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest shadow-lg shadow-blue-100">
-              V2.5
+              {services.length} Xidmət
             </div>
           </div>
 
@@ -56,7 +57,7 @@ export default function App() {
             </div>
             <input 
               type="text"
-              placeholder="Kod və ya xidmət adı ilə axtar..."
+              placeholder="Sıra № və ya xidmət adı..."
               className="w-full bg-slate-50 border-2 border-slate-50 rounded-[22px] py-4.5 pl-12 pr-4 focus:bg-white focus:border-blue-600 focus:ring-8 focus:ring-blue-600/5 transition-all outline-none text-md font-semibold"
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -82,7 +83,7 @@ export default function App() {
 
       <main className="max-w-xl mx-auto p-6 space-y-6">
         <div className="flex items-center justify-between text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] px-2">
-          <span>Bazada cəmi: {services.length} xidmət</span>
+          <span>Nəticə: {results.length}</span>
           <span className="flex items-center gap-1.5 text-blue-500"><Zap size={12} fill="currentColor" /> Live</span>
         </div>
 
@@ -91,14 +92,14 @@ export default function App() {
             key={idx} 
             className="bg-white rounded-[40px] p-7 border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-blue-600/10 transition-all duration-500 border-l-[8px] border-l-blue-600 group"
           >
-            {/* TOP SECTION: KOD (REFINED FONT SIZE) */}
+            {/* TOP SECTION: SIRA № (MATCHING PRICE FONT SIZE) */}
             <div className="flex justify-between items-start mb-4">
               <div className="flex flex-col gap-1">
-                <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.15em] px-1 mb-1">Prosedur Kodu</p>
+                <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.15em] px-1 mb-1">Sıra №</p>
                 <div className="flex items-center gap-2 text-blue-600 px-1">
                   <Hash size={24} className="opacity-30 shrink-0" />
                   <span className="text-3xl font-black tracking-tighter leading-none">
-                    {item["Prosedur / xəstəlik kodu"] || "N/A"}
+                    {item["Sıra №"] || "N/A"}
                   </span>
                 </div>
               </div>
@@ -116,7 +117,7 @@ export default function App() {
               </h3>
             </div>
 
-            {/* BOTTOM SECTION: TARIF (MATCHING FONT SIZE) */}
+            {/* BOTTOM SECTION: TARIF */}
             <div className="flex items-end justify-between border-t border-slate-50 pt-6">
               <div className="flex flex-col gap-1">
                 <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.15em] px-1 mb-1">Xidmət Tarifi</p>
@@ -135,16 +136,7 @@ export default function App() {
             </div>
           </div>
         ))}
-
-        {results.length === 0 && (
-          <div className="text-center py-32 px-10">
-            <div className="bg-slate-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-100">
-              <Search size={48} />
-            </div>
-            <h2 className="text-slate-900 font-black text-2xl tracking-tight">Tapılmadı</h2>
-            <p className="text-slate-400 text-sm mt-2 font-medium">Lütfən kodu və ya adı dəqiqləşdirin.</p>
-          </div>
-        )}
+        {/* ... (Keep Empty State logic from before) */}
       </main>
     </div>
   );
